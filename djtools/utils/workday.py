@@ -143,33 +143,38 @@ def get_student(peep):
             preferred_name = full_name.split(' ')[0]
             if preferred_name != first_name:
                 alt_name = preferred_name
-        student = {
-            'id': cid,
-            'first_name': first_name,
-            'last_name': peep.get('lastName'),
-            'alt_name': alt_name,
-            'email': peep['LRV_Student_Primary_Institutional_Email_Text'],
-            'second_name': peep.get('Middle_Name'),
-            'suffix': peep.get('Suffix'),
-            'birth_date': birth_date,
-            'address1': peep.get('LRV_Student_Primary_Address_Line_1'),
-            'city': peep.get('Primary_Home_Address_-_City'),
-            'state': peep.get('Primary_Home_Address_-_State'),
-            'postal_code': peep.get('LRV_Student_Primary_Address_Zip'),
-            'country': peep.get('LRV_Student_Primary_Address_Country'),
-            'gender': peep.get('Legal_Sex'),
-            'class_year': peep.get('Latest_Class_Standing'),
-            'residency': residency,
-            'adult': adult,
-            'incoming': incoming,
-            'privacy':  privacy,
-            'Primary_Major': peep.get('Primary_Major'),
-            'Second_Major': peep.get('Second_Major'),
-            'Third_Major': peep.get('Third_Major'),
-            'Minor_One': peep.get('Minor_One'),
-            'Minor_Two': peep.get('Minor_Two'),
-            'Minor_Three': peep.get('Minor_Three'),
-        }
+        email =  peep.get('LRV_Student_Primary_Institutional_Email_Text')
+        if email:
+            student = {
+                'id': cid,
+                'username': email.split('@')[0],
+                'first_name': first_name,
+                'last_name': peep.get('lastName'),
+                'alt_name': alt_name,
+                'email': email,
+                'second_name': peep.get('Middle_Name'),
+                'suffix': peep.get('Suffix'),
+                'birth_date': birth_date,
+                'address1': peep.get('LRV_Student_Primary_Address_Line_1'),
+                'city': peep.get('Primary_Home_Address_-_City'),
+                'state': peep.get('Primary_Home_Address_-_State'),
+                'postal_code': peep.get('LRV_Student_Primary_Address_Zip'),
+                'country': peep.get('LRV_Student_Primary_Address_Country'),
+                'gender': peep.get('Legal_Sex'),
+                'class_year': peep.get('Latest_Class_Standing'),
+                'residency': residency,
+                'adult': adult,
+                'incoming': incoming,
+                'privacy':  privacy,
+                'Primary_Major': peep.get('Primary_Major'),
+                'Second_Major': peep.get('Second_Major'),
+                'Third_Major': peep.get('Third_Major'),
+                'Minor_One': peep.get('Minor_One'),
+                'Minor_Two': peep.get('Minor_Two'),
+                'Minor_Three': peep.get('Minor_Three'),
+            }
+        else:
+            print('no email for student: {0}'.format(cid))
 
     return student
 
