@@ -4,7 +4,6 @@ import requests
 
 from django import template
 from django.conf import settings
-from django.core.cache import cache
 
 
 register = template.Library()
@@ -22,20 +21,21 @@ def get_api_data(cid, ptype):
         profile = response.json()
     if profile:
         profile = profile[0]
-        profile['majors'] = ', '.join(
-            list(filter(None, [
-                profile.get('Primary_Major', ''),
-                profile.get('Second_Major', ''),
-                profile.get('Third_Major', ''),
-            ]))
-        )
-        profile['minors'] = ', '.join(
-            list(filter(None,[
-                profile.get('Minor_One', ''),
-                profile.get('Minor_Two', ''),
-                profile.get('Minor_Three', ''),
-            ]))
-        )
+        if ptype=='student':
+            profile['majors'] = ', '.join(
+                list(filter(None, [
+                    profile.get('Primary_Major', ''),
+                    profile.get('Second_Major', ''),
+                    profile.get('Third_Major', ''),
+                ]))
+            )
+            profile['minors'] = ', '.join(
+                list(filter(None,[
+                    profile.get('Minor_One', ''),
+                    profile.get('Minor_Two', ''),
+                    profile.get('Minor_Three', ''),
+                ]))
+            )
     return profile
 
 
