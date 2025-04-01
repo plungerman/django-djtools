@@ -17,8 +17,10 @@ def get_api_data(cid, ptype):
         HEADERS = {'Authorization': 'Token 666'}
     earl = '{0}{1}/{2}/detail/'.format(settings.DIRECTORY_API_URL, ptype, cid)
     response = requests.get(earl, headers=HEADERS)
-    if response.json():
+    try:
         profile = response.json()
+    except Exception:
+        profile = None
     if profile:
         profile = profile[0]
         if ptype=='student':
