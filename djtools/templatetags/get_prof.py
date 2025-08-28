@@ -72,7 +72,8 @@ class GetProf(template.Node):
                                     root, profile_data['parent'],
                                 )
                                 response = requests.get(earl)
-                                profile_data = response.json()
+                                if response:
+                                    profile_data = response.json()
                             if profile_data.get('thumb'):
                                 listz = profile_data['thumb'].split('/')
                                 listz[8] = '145'
